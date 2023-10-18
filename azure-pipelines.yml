@@ -1,12 +1,7 @@
 pool: default
 steps:
 - bash: echo hello world
-- task: DotNetCoreCLI@2
-  displayName: 'Build the project - $(buildConfiguration)'
-  inputs:
-    command: 'build'
-    arguments: '--no-restore --configuration $(buildConfiguration)'
-    projects: '**/*.csproj'
+- bash: dotnet build Tailspin.SpaceGame.Web.sln
 - task: DotNetCoreCLI@2
   displayName: 'Pack the project - $(buildConfiguration)'
   inputs:
@@ -16,7 +11,6 @@ steps:
     majorVersion: '1'
     minorVersion: '0'
     patchVersion: '0'
-#- bash: dotnet pack Tailspin.SpaceGame.Web.sln
 - task: NuGetCommand@2
   displayName: 'Publish NuGet package'
   inputs:
