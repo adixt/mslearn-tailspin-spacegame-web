@@ -1,7 +1,12 @@
 pool: default
 steps:
 - bash: echo hello world
-- bash: dotnet build Tailspin.SpaceGame.Web.sln
+- task: DotNetCoreCLI@2
+  displayName: 'Build the project - $(buildConfiguration)'
+  inputs:
+    command: 'build'
+    arguments: '--no-restore --configuration $(buildConfiguration)'
+    projects: '**/*.csproj'
 - task: DotNetCoreCLI@2
   displayName: 'Pack the project - $(buildConfiguration)'
   inputs:
